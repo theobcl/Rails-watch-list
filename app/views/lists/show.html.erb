@@ -1,0 +1,20 @@
+<h1><%=@list.name%></h1>
+
+<ul class="list-group">
+  <% @list.bookmarks.each do |b| %>
+    <li>
+      <h3><%= b.movie.title %> | <%= b.movie.rating %>/10</h3>
+      <br>
+      <p><%= b.movie.overview %></p>
+      <br>
+      <img src="<%=b.movie.poster_url%>" alt="poster" width=100>
+      <%= link_to "Remove",
+            list_bookmark_path(@list),
+            method: :delete,
+            data: { confirm: "Are you sure?" } %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "Add a bookmark", new_list_bookmark_path(@list) %> |
+<%= link_to "Back", lists_path %> |
