@@ -1,20 +1,25 @@
-<h1><%=@list.name%></h1>
-
-<ul class="list-group">
+<div class="container">
+  <h1 class="mb-1 mt-3"><%=@list.name%></h1>
+  <%= link_to "Add a bookmark", new_list_bookmark_path(@list) %> |
+  <%= link_to "Back", lists_path %> |
+  <ul class="list-group cards mt-2">
   <% @list.bookmarks.each do |b| %>
     <li>
-      <h3><%= b.movie.title %> | <%= b.movie.rating %>/10</h3>
-      <br>
-      <p><%= b.movie.overview %></p>
-      <br>
-      <img src="<%=b.movie.poster_url%>" alt="poster" width=100>
-      <%= link_to "Remove",
-            list_bookmark_path(@list),
-            method: :delete,
-            data: { confirm: "Are you sure?" } %>
+      <div class="card-trip">
+        <%= link_to "+", bookmark_path(b), method: :delete, data: { confirm: "Are you sure?" }, class: "card-remove-link" %>
+        <img src="<%=b.movie.poster_url%>" />
+        <div class="card-trip-infos">
+          <div>
+            <h2><%=b.movie.title%></h2>
+          </div>
+          <div>
+            <h2 class="card-trip-pricing"><%= b.movie.rating %>/10</h2>
+          </div>
+        </div>
+        <p class="pl-3 pr-3 pt-1 pb-1"><%=b.movie.overview%></p>
+        <p class="pl-3 pr-3 pt-1 pb-1">Comment: <em>"<%=b.comment%>"</em></p>
+      </div>
     </li>
   <% end %>
 </ul>
-
-<%= link_to "Add a bookmark", new_list_bookmark_path(@list) %> |
-<%= link_to "Back", lists_path %> |
+</div>
